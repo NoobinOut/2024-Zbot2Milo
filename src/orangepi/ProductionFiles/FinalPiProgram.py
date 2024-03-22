@@ -159,29 +159,6 @@ def average_position_of_pixels(mat, threshold=128):
     else:
         return 0, 0
 
-def RingDetection(vs):
-    try:
-        while True:
-            frame2 = vs.read()
-            for (lower, upper) in boundaries:
-                # create NumPy arrays from the boundaries
-                lower = np.array(lower, dtype = "uint8")
-                upper = np.array(upper, dtype = "uint8")
-                # find the colors within the specified boundaries and apply
-                # the mask
-                mask = cv2.inRange(frame2, lower, upper)
-                output = cv2.bitwise_and(frame2, frame2, mask = mask)
-                output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
-                # show the images
-                output = denoise_image(output)
-                avX, avY = average_position_of_pixels(output, 120)
-                #print(avX, avY)
-                table.putNumberArray("Rings", (avX, avY))
-    except:
-        RingMode = False
-        print("Rings disabled due to error")
-        vs.stop()
-
 if not testmode:
     configFile = "/boot/frc.json"
 
@@ -370,7 +347,7 @@ if not testmode:
         for config in switchedCameraConfigs:
             startSwitchedCamera(config)
         # get frame/sink to process from first camera
-        img = np.zeros(shape=(480, 640, 3), dtype=np.uint8)
+        img = np.zeros(shape=(360, 680, 3), dtype=np.uint8)
         cvSink = CameraServer.getVideo()
         output = CameraServer.putVideo("AprilTags", 680, 360)
 
@@ -395,17 +372,38 @@ saved = False
 TagNum = ""
 
 
-if RingMode:
-    RingDetection(myWebcamVideoStream(2).start())
+if not testmode and RingMode:
+    vs = myWebcamVideoStream(2).start()
 
 #Todo: Make not timed but not stupid
 while testmode == False | (iteration < 3 & testmode == True):
    if testmode == False:
         time, frame = cvSink.grabFrame(img)
         frame = np.rot90(np.rot90(frame, 1), 1)
+        frame2 = vs.read()
    else:
       frame = cv2.imread('test.jpg')
-   
+
+   try:
+            for (lower, upper) in boundaries:
+                # create NumPy arrays from the boundaries
+                lower = np.array(lower, dtype = "uint8")
+                upper = np.array(upper, dtype = "uint8")
+                # find the colors within the specified boundaries and apply
+                # the mask
+                mask = cv2.inRange(frame2, lower, upper)
+                output = cv2.bitwise_and(frame2, frame2, mask = mask)
+                output = cv2.cvtColor(output, cv2.COLOR_BGR2GRAY)
+                # show the images
+                output = denoise_image(output)
+                avX, avY = average_position_of_pixels(output, 120)
+                #print(avX, avY)
+                table.putNumberArray("Rings", (avX, avY))
+   except:
+        RingMode = False
+        print("Rings disabled due to error")
+        vs.stop()
+
    if Aprilmode:
     #frame = cv2.undistort(img, mtx, dist, None, newcameramtx)
     grayimage = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
@@ -437,9 +435,6 @@ while testmode == False | (iteration < 3 & testmode == True):
                 table.putNumberArray((str(detect.tag_id) + "-BotRht"), detect.corners[2])
                 table.putNumber((str(detect.tag_id) + "-Dist"), distance)
                 table.putNumberArray((str(detect.tag_id) + "-XYZ"), pos)
-    
-    if Livemode:
-        table2.putString("TagID", TagNum)
 
    #cv2.imshow('frame', frame)
    #cv2.waitKey(1)

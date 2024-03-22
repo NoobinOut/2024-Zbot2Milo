@@ -802,7 +802,8 @@ x5= bitarray('00111100')
 x6= bitarray('00000000')
 x7= bitarray('00000000')
 
-Smile2A = [x0,x1,x2,x3,x4,x5,x6,x7]
+Smile2A = [x0,x1,x2,x3]
+SmileAS = [x4,x5,x6,x7]
 
 x0= bitarray('01011010')
 x1= bitarray('10011001')
@@ -825,6 +826,7 @@ x6= bitarray('00100100')
 x7= bitarray('00011000')
 
 SmileSuk = [x0,x1,x2,x3,x4,x5,x6,x7]
+SmileAO = [x4,x5,x6,x7]
 
 
 def ShowBuls(brightness, Status):
@@ -836,8 +838,13 @@ def ShowBuls(brightness, Status):
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-			if Status == "Speaker":
+			if Status == "Climb":
 				if letterredS[j][i]:
+					UH.set_pixel(j,flip[i],brightness,0,0)
+				else:
+					UH.set_pixel(j,flip[i],0,0,0)
+			if Status == "Speaker":
+				if letterred[j][i]:
 					UH.set_pixel(j,flip[i],brightness,0,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
@@ -848,107 +855,177 @@ def ShowBuls(brightness, Status):
 					UH.set_pixel(j,flip[i],0,0,0)          
 	UH.show()
 
-def ShowSmileAuto(brightness, Smilestage):
+def ShowSmileAuto(brightness, Smilestage, Status):
 	UH.rotation(90)		
 	if Smilestage <= 1:
 		UH.clear()
 		for i in range(8):
-			for j in range(8):
+			for j in range(4):
 				if Smile1A[j][i]:
 					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
+		if Status == "S":
+			for i in range(8):
+				for j in range(4):
+					if SmileAS[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
+		else:
+			for i in range(8):
+				for j in range(4):
+					if SmileAO[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
 	elif Smilestage == 2:
 		UH.clear()
 		for i in range(8):
-			for j in range(8):
+			for j in range(4):
 				if Smile2A[j][i]:
 					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
+		if Status == "S":
+			for i in range(8):
+				for j in range(4):
+					if SmileAS[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
+		else:
+			for i in range(8):
+				for j in range(4):
+					if SmileAO[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
 	elif Smilestage == 3:
 		UH.clear()
 		for i in range(8):
-			for j in range(8):
+			for j in range(4):
 				if Smile3A[j][i]:
 					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
+		if Status == "S":
+			for i in range(8):
+				for j in range(4):
+					if SmileAS[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
+		else:
+			for i in range(8):
+				for j in range(4):
+					if SmileAO[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
 	elif Smilestage == 4:
 		UH.clear()
 		for i in range(8):
-			for j in range(8):
+			for j in range(4):
 				if Smile2A[j][i]:
 					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
+		if Status == "S":
+			for i in range(8):
+				for j in range(4):
+					if SmileAS[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
+		else:
+			for i in range(8):
+				for j in range(4):
+					if SmileAO[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
 	elif Smilestage == 5:
 		UH.clear()
 		for i in range(8):
-			for j in range(8):
+			for j in range(4):
 				if Smile1A[j][i]:
 					UH.set_pixel(j,flip[i],0,brightness,0)
 				else:
-					UH.set_pixel(j,flip[i],0,0,0)
+					UH.set_pixel(j,flip[i],0,brightness,0)
+		if Status == "S":
+			for i in range(8):
+				for j in range(4):
+					if SmileAS[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
+		else:
+			for i in range(8):
+				for j in range(4):
+					if SmileAO[j][i]:
+						UH.set_pixel(j+4,flip[i],0,brightness,0)
+					else:
+						UH.set_pixel(j+4,flip[i],0,0,0)
 	UH.show()
 
 def ShowSmile(brightness, Smilestage):
 	UH.rotation(90)		
-	if Smilestage < 61:
+	if Smilestage < 181:
 		print("1")
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile0[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 61:
+	elif Smilestage == 181:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile1[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 62:
+	elif Smilestage == 182:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile2[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 63:
+	elif Smilestage == 183:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile3[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 64:
+	elif Smilestage == 184:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile2[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 65:
+	elif Smilestage == 185:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile1[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
-	elif Smilestage == 66:
+	elif Smilestage == 186:
 		UH.clear()
 		for i in range(8):
 			for j in range(8):
 				if Smile0[j][i]:
-					UH.set_pixel(j,flip[i],brightness,0,0)
+					UH.set_pixel(j,flip[i],abs(brightness-100),0,Smilestage*2)
 				else:
 					UH.set_pixel(j,flip[i],0,0,0)
 	UH.show()
@@ -1101,6 +1178,8 @@ ntinst = ntcore.NetworkTableInstance.getDefault()
 ntinst.setServer("10.56.7.2")
 ntinst.startClient4("Background Unicorn")
 table = ntinst.getTable("UnicornHatRIO")
+table2 = ntinst.getTable("UnicornHat")
+
 
 Brightmulti = 1
 Smilestage = 0
@@ -1128,15 +1207,10 @@ while True:
              elif Shoot == "ShootingSpeaker":
                 ShowBuls(brightness, "Speaker")
              elif Shoot == "Climb":
-                ShowBuls(brightness, "Speaker")
+                ShowBuls(brightness, "Climb")
              elif Shoot == "Intake":
                 ShowBuls(brightness, "Intake")
              elif Shoot == "Disabled":
-                if Smilestage == smileShow:
-                    #unicorn_scroll(randphrase(), randcolor(), brightness, 0.11)
-                    #Smilestage += 1
-                    print(smileShow)
-                else:
                     ShowSmile(brightness, Smilestage)
                     Smilestage += 1
              else:
@@ -1144,11 +1218,14 @@ while True:
                 Smilestage += 1
 
     else:
-             ShowSmileAuto(brightness, smileauto)
+             if Shoot == "Intake":
+                autostat = "I"
+             else:
+                autostat = "S"
+             ShowSmileAuto(brightness, smileauto, autostat)
              smileauto += 1
              if smileauto >= 5:
                  smileauto = 1
-    time.sleep(0.2)
-    if Smilestage > 66:
-        Smilestage = 0
-        smileShow = random.randrange(0,60)
+    time.sleep(0.085)
+    if Smilestage > 186:
+        Smilestage = 1
